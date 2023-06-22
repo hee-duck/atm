@@ -28,23 +28,24 @@ public class Atm {
     private AccountManager accountManager;
     private FileManager fileManager;
 
-    private int log;
+    private static int log;
 
     public Atm(String brandName) {
         this.brandName = brandName;
+        this.log = -1;
 
         this.userManager = UserManager.getInstance();
         this.accountManager = AccountManager.getInstance();
         this.fileManager = FileManager.getInstance();
     }
 
-/*    public int getLog() {
+    public int getLog() {
         return this.log;
     }
 
     public void setLog(int log) {
         this.log = log;
-    }*/
+    }
 
     private void printAlldata() {
         for (User user : userManager.getList()) {
@@ -102,6 +103,7 @@ public class Atm {
     }
 
     private void printMenu() {
+        System.out.println(log);        // 검증용
         System.out.printf("--- %s BANK ---\n", this.brandName);
         System.out.println("[1]회원가입");
         System.out.println("[2]회원탈퇴");

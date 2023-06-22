@@ -10,6 +10,7 @@ public class UserManager {
     private AccountManager accManager = AccountManager.getInstance();
 
     private ArrayList<User> list = new ArrayList<User>();
+    Atm atm = new Atm("MyBank");
 
     // 1) 생성자를 숨긴다 private
     private UserManager() {}
@@ -84,12 +85,13 @@ public class UserManager {
 
     // 탈퇴
     public void leaverUser() {
-        if (this.log != -1) {
+        if (atm.getLog() != -1) {
             System.out.print("비밀번호 : ");
             String password = Atm.scanner.next();
 
-            if (list.get(this.log).getPassword().equals(password)) {
-                list.remove(this.log);
+            if (list.get(atm.getLog()).getPassword().equals(password)) {
+                list.remove(atm.getLog());
+                atm.setLog(-1);
                 System.out.println("탈퇴가 완료되었습니다.");
             } else {
                 System.out.println("회원정보가 일치하지 않습니다.");
@@ -102,7 +104,7 @@ public class UserManager {
 
     // 로그인
     public int loginUser() {
-        if (this.log == -1) {
+        if (atm.getLog() == -1) {
             System.out.print("id : ");
             String id = Atm.scanner.next();
             System.out.print("password : ");
@@ -110,8 +112,8 @@ public class UserManager {
 
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getId().equals(id) && list.get(i).getPassword().equals(password)) {
-                    this.log = i;
-
+                    // this.log = i;
+                    atm.setLog(i);
                 }
             }
 
@@ -134,8 +136,9 @@ public class UserManager {
 
     // 로그아웃
     public void logoutUser() {
-        if (this.log != -1) {
-            this.log = -1;
+        if (atm.getLog() != -1) {
+            atm.setLog(-1);
+            System.out.println("로그아웃이 완료되었습니다.");
         } else {
             System.out.println("로그인 후 이용해주세요.");
         }

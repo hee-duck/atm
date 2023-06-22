@@ -3,17 +3,21 @@ package atm;
 import java.util.ArrayList;
 
 public class AccountManager {
-
     private ArrayList<Account> list = new ArrayList<Account>();
 
     private AccountManager() {
     }
 
     private static AccountManager instance = new AccountManager();
+    Atm atm = new Atm("MyBank");
 
     public static AccountManager getInstance() {
         return instance;
     }
+
+    /*public boolean isLogin() {
+        return atm.getLog() == -1 ? false : true;
+    }*/
 
     public void createAccount(User user) {
         // Account acc = null;
@@ -28,7 +32,6 @@ public class AccountManager {
         ArrayList<Account> accs = user.getAccs();
         accs.add(acc);
         user.setAccs(accs);
-
     }
 
     private int generateRandomCode() { // ####-####
@@ -49,7 +52,6 @@ public class AccountManager {
 
         return code;
     }
-
 
 
 }
