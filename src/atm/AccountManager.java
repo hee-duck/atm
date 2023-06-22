@@ -2,50 +2,54 @@ package atm;
 
 import java.util.ArrayList;
 
-// 계좌 정보 관리
 public class AccountManager {
-    private int log  = UserManager.getInstance().getLog();
 
     private ArrayList<Account> list = new ArrayList<Account>();
 
+    private AccountManager() {
+    }
+
     private static AccountManager instance = new AccountManager();
 
-/*    private AccountManager() {
-        // private 생성자에서 log 변수 초기화
-        this.log = -1;
-    }*/
-
-    // 외부에서 단일하게 존재하는 인스턴스를 참조할 수 있도록 getter 생성
     public static AccountManager getInstance() {
         return instance;
     }
 
-    // 계약
-    public void createAcc() {
-        if (log != -1){
-            System.out.print("password : ");
-            String password = Atm.scanner.next();
+    public void createAccount(User user) {
+        // Account acc = null;
+        int accNumber = generateRandomCode();
+        int accPassword = Atm.inputNumber("계좌 비밀번호");
 
-            if (list.get(this.log).equals(password)) {
-                System.out.print("userCode : ");
-                int userCode = Integer.parseInt(Atm.scanner.next());
+        Account acc = new Account(user.getUserCode(), accNumber, accPassword);
+        this.list.add(acc);
 
-                System.out.print("개설 계좌번호 : ");
-                int acctNum = Integer.parseInt(Atm.scanner.next());
+        // AccountManager 의 list 에 추가된 객체를 생성과 동시에 반환 받음
+        // -> User 객체가 가진 acc 즐겨찾기 목록에도 추가(like 색인)
+        ArrayList<Account> accs = user.getAccs();
+        accs.add(acc);
+        user.setAccs(accs);
 
-                System.out.print("계좌 비밀번호 : ");
-                int accPassword = Integer.parseInt(Atm.scanner.next());
-
-                Account account = new Account(userCode, acctNum, accPassword); // Account 객체 생성
-                list.add(account); // Account 객체를 ArrayList에 추가
-                System.out.println("계좌 개설이 완료되었습니다.");
-            } else {
-                System.out.println("입력 정보를 다시 확인해주세요.");
-            }
-        }else {
-            System.out.println("로그인 후 이용 가능합니다.");
-        }
     }
+
+    private int generateRandomCode() { // ####-####
+        int code = 0;
+
+        while (true) {
+            code = (int) (Math.random() * 9000) + 1000;
+
+            boolean dupl = false;
+            for (Account acc : this.list) {
+                if (acc.getAcctNum() == code)
+                    dupl = true;
+            }
+
+            if (!dupl)
+                break;
+        }
+
+        return code;
+    }
+
 
 
 }

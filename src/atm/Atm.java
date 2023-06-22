@@ -20,6 +20,7 @@ public class Atm {
     private final int LOAD_FILE = 12;
     private final int QUIT = 0;
 
+
     public static final Scanner scanner = new Scanner(System.in);
 
     private String brandName;
@@ -27,8 +28,9 @@ public class Atm {
     private AccountManager accountManager;
     private FileManager fileManager;
 
+    private int log;
 
-    public Atm(String brandName){
+    public Atm(String brandName) {
         this.brandName = brandName;
 
         this.userManager = UserManager.getInstance();
@@ -37,19 +39,19 @@ public class Atm {
     }
 
     private void printAlldata() {
-        for(User user : userManager.getList()){
+        for (User user : userManager.getList()) {
             System.out.println(user);
         }
     }
 
-    private int inputNumber(String msg){
+    public static int inputNumber(String msg) {
         System.out.println(msg + " : ");
-        String input = this.scanner.next();
+        String input = scanner.next();
 
         int number = -1;
         try {
             number = Integer.parseInt(input);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("숫자만 입력 가능합니다.");
         }
         return number;
@@ -61,16 +63,16 @@ public class Atm {
             printMenu();
             int sel = inputNumber("메뉴");
 
-            if (sel == this.JOIN){
+            if (sel == this.JOIN) {
                 userManager.joinUser();
             } else if (sel == this.LEAVE) {
                 userManager.leaverUser();
-            }  else if (sel == this.LOGIN) {
+            } else if (sel == this.LOGIN) {
                 userManager.loginUser();
             } else if (sel == this.LOGOUT) {
                 userManager.logoutUser();
-            } else if (sel == this.CREATE_ACC){
-                accountManager.createAcc();
+            } else if (sel == this.CREATE_ACC) {
+                accountManager.createAccount(userManager.getUserByUserCode(this.log));
             }/* else if (sel == this.DELETE_ACC) {
                 accountManager.deleteAcc();
             } else if (sel == this.VIEW_BALANCE) {

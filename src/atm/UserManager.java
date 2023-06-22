@@ -7,12 +7,12 @@ public class UserManager {
     private int log = -1;
     private int idx;
 
-    // Design Pattern (GOF) 설계 패턴 중 싱글 인스턴스를 만드는 Singleton Pattern 사용
+    private AccountManager accManager = AccountManager.getInstance();
+
     private ArrayList<User> list = new ArrayList<User>();
 
     // 1) 생성자를 숨긴다 private
-    private UserManager() {
-    }
+    private UserManager() {}
 
     // 2) 클래스 내부에서 단일 인스턴스를 생성해준다
     private static UserManager instance = new UserManager();
@@ -36,13 +36,23 @@ public class UserManager {
         System.out.print("name : ");
         String name = Atm.scanner.next();
 
-        if (!duplId(id)) {
+        if (!duplId((id))) {
             User user = new User(userCode, name, id, password);
             this.list.add(user);
+            accManager.createAccount(user);
+
             System.out.println("회원가입 완료");
-        } else {
-            System.out.println("중복 아이디입니다.");
+        }else {
+            System.out.println("중복되는 아이디입니다.");
         }
+    }
+
+    public User getUserByUserCode(int log) {        // 계좌를 개설할 수 있으면 -> 로그인 상태인데 -> 해당 로그값을 넘겨주고 로그값에 맞는 인덱스 번째의 유저 객체를 반환을 받는 것
+        for (User user : this.list) {
+            if (user.getUserCode() == log)
+                return user;
+        }
+        return null;
     }
 
     public ArrayList<User> getList() {
@@ -58,7 +68,7 @@ public class UserManager {
         return dupl;
     }
 
-    public int generateRandomCode() {
+    private int generateRandomCode() {
         int code = 0;
 
         while (true) {

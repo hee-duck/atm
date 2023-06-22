@@ -20,21 +20,24 @@ public class User {
         this.password = pwssword;
     }
 
-    public User(int userCode, String name, String id, String pwssword, int age) {
+    public User(int userCode, String name, String id, String password, int age) {
         this.accs = new ArrayList<Account>();
+
         this.userCode = userCode;
         this.name = name;
         this.id = id;
-        this.password = pwssword;
+        this.password = password;
         this.age = age;
     }
 
-    public User(int userCode, String name, String id, String pwssword, ArrayList<Account> accs) {
+    public User(int userCode, String name, String id, String password, int age, ArrayList<Account> accs) {
         this.accs = new ArrayList<Account>();
+
         this.userCode = userCode;
         this.name = name;
         this.id = id;
-        this.password = pwssword;
+        this.password = password;
+        this.age = age;
         this.accs = accs;
     }
 
@@ -76,7 +79,6 @@ public class User {
         this.accs = accs;
     }
 
-    // 메소드
     /*
      * name(userCode) : id/password
      * ㄴ acctNum1(password) : balance1
@@ -87,8 +89,8 @@ public class User {
     @Override
     public String toString() {                  // 검증용 출력문에 사용했음
         String str = String.format("%s(%d) : %s/%s", this.name, this.userCode, this.id, this.password);
-        for (int i = 0; i < this.accs.size(); i++){
-            str += "\n" + this.accs.get(i);
+        for (int i = 0; i < this.accs.size(); i++) {
+            str += "\nㄴ " + this.accs.get(i);
         }
 
         return str;

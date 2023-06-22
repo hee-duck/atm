@@ -8,13 +8,13 @@ public class Account {
     private int money;          // U
 
     // 생성자
-    public Account(int userCode, int acctNum, int accPassword){
+    public Account(int userCode, int acctNum, int accPassword) {
         this.userCode = userCode;
         this.acctNum = acctNum;
         this.accPassword = accPassword;
     }
 
-    public Account(int userCode, int acctNum, int accPassword, int money){
+    public Account(int userCode, int acctNum, int accPassword, int money) {
         this.userCode = userCode;
         this.acctNum = acctNum;
         this.accPassword = accPassword;
