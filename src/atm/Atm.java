@@ -38,6 +38,14 @@ public class Atm {
         this.fileManager = FileManager.getInstance();
     }
 
+/*    public int getLog() {
+        return this.log;
+    }
+
+    public void setLog(int log) {
+        this.log = log;
+    }*/
+
     private void printAlldata() {
         for (User user : userManager.getList()) {
             System.out.println(user);

@@ -22,10 +22,6 @@ public class UserManager {
         return instance;
     }
 
-    public int getLog() {
-        return this.log;
-    }
-
     // 가입
     public void joinUser() {
         int userCode = generateRandomCode();
@@ -49,7 +45,7 @@ public class UserManager {
 
     public User getUserByUserCode(int log) {        // 계좌를 개설할 수 있으면 -> 로그인 상태인데 -> 해당 로그값을 넘겨주고 로그값에 맞는 인덱스 번째의 유저 객체를 반환을 받는 것
         for (User user : this.list) {
-            if (user.getUserCode() == log)
+            if (user.getUserCode() == this.list.get(log).getUserCode())         // list 배열안에 log 위치에 있는 userCode 랑 같은지 비교 -> user 객체 반환
                 return user;
         }
         return null;
@@ -115,6 +111,7 @@ public class UserManager {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getId().equals(id) && list.get(i).getPassword().equals(password)) {
                     this.log = i;
+
                 }
             }
 
