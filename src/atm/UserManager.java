@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 // 사용자 정보 관리
 public class UserManager {
+    private int log = -1;
+    private int idx;
+
     // Design Pattern (GOF) 설계 패턴 중 싱글 인스턴스를 만드는 Singleton Pattern 사용
     private ArrayList<User> list = new ArrayList<User>();
 
@@ -17,6 +20,10 @@ public class UserManager {
     // 3) 외부에서 단일 인스턴스를 참조할 수 있도록 getter 를 제공한다
     public static UserManager getInstance() {
         return instance;
+    }
+
+    public int getLog() {
+        return this.log;
     }
 
     // 가입
@@ -55,7 +62,7 @@ public class UserManager {
         int code = 0;
 
         while (true) {
-            code = (int)(Math.random() * 9000) + 1000;
+            code = (int) (Math.random() * 9000) + 1000;
 
             boolean dupl = false;
             for (User user : this.list) {
@@ -70,24 +77,61 @@ public class UserManager {
     }
 
     // 탈퇴
-/*    public void drop() {
-        System.out.print("탈퇴할 사용자 아이디: ");
-        String userId = scanner.nextLine();
-​
-        int idx = -1;
-        for (int i = 0; i < userList.size(); i++) {
-            if (userList.get(i).getId().equals(userId)) {
-                idx = i;
-                break;
+    public void leaverUser() {
+        if (this.log != -1) {
+            System.out.print("비밀번호 : ");
+            String password = Atm.scanner.next();
+
+            if (list.get(this.log).getPassword().equals(password)) {
+                list.remove(this.log);
+                System.out.println("탈퇴가 완료되었습니다.");
+            } else {
+                System.out.println("회원정보가 일치하지 않습니다.");
             }
-        }
-​
-        if (idx != -1) {
-            userList.remove(idx);
-            userIdList.remove(idx);
-            System.out.println("탈퇴가 완료되었습니다.");
+
         } else {
-            System.out.println("아이디가 존재하지 않습니다.");
+            System.out.println("로그인 후 이용해주세요.");
         }
+    }
+
+    // 로그인
+    public int loginUser() {
+        if (this.log == -1) {
+            System.out.print("id : ");
+            String id = Atm.scanner.next();
+            System.out.print("password : ");
+            String password = Atm.scanner.next();
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getId().equals(id) && list.get(i).getPassword().equals(password)) {
+                    this.log = i;
+                }
+            }
+
+            System.out.println("로그인이 완료되었습니다.");
+
+        } else {
+            System.out.println("이미 로그인된 상태입니다.");
+        }
+        return this.log;
+    }
+
+/*    private boolean duplPw(String password) {
+        boolean dupl = false;
+        for (User user : this.list) {
+            if (user.getPassword().equals(password))
+                dupl = true;
+        }
+        return dupl;
     }*/
+
+    // 로그아웃
+    public void logoutUser() {
+        if (this.log != -1) {
+            this.log = -1;
+        } else {
+            System.out.println("로그인 후 이용해주세요.");
+        }
+    }
+
 }

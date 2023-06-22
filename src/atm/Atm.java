@@ -63,15 +63,15 @@ public class Atm {
 
             if (sel == this.JOIN){
                 userManager.joinUser();
-            } /*else if (sel == this.LEAVE) {
+            } else if (sel == this.LEAVE) {
                 userManager.leaverUser();
-            } else if (sel == this.LOGIN) {
+            }  else if (sel == this.LOGIN) {
                 userManager.loginUser();
             } else if (sel == this.LOGOUT) {
                 userManager.logoutUser();
-            }  else if (sel == this.CREATE_ACC){
+            } else if (sel == this.CREATE_ACC){
                 accountManager.createAcc();
-            } else if (sel == this.DELETE_ACC) {
+            }/* else if (sel == this.DELETE_ACC) {
                 accountManager.deleteAcc();
             } else if (sel == this.VIEW_BALANCE) {
                 accountManager.viewBalance();
@@ -107,11 +107,5 @@ public class Atm {
         System.out.println("[12]파일로드");
         System.out.println("[0]종료");
     }
-
-    private void exit() {
-        System.out.println("프로그램을 종료합니다.");
-        System.exit(0);
-    }
-
 
 }
